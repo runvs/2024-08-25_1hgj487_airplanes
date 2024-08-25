@@ -1,6 +1,7 @@
 ﻿#ifndef GAME_STATE_GAME_HPP
 #define GAME_STATE_GAME_HPP
 
+#include "plane.hpp"
 #include <box2dwrapper/box2d_world_interface.hpp>
 #include <game_state.hpp>
 #include <memory>
@@ -24,7 +25,9 @@ private:
     std::shared_ptr<jt::Vignette> m_vignette;
     std::shared_ptr<Hud> m_hud;
     std::shared_ptr<jt::Box2DWorldInterface> m_world { nullptr };
-    
+
+    std::shared_ptr<Plane> m_plane;
+
     bool m_running { true };
     bool m_hasEnded { false };
 
