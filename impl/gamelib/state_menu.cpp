@@ -7,7 +7,6 @@
 #include <input/input_manager.hpp>
 #include <lerp.hpp>
 #include <log/license_info.hpp>
-#include <algorithm>
 #include <screeneffects/vignette.hpp>
 #include <state_game.hpp>
 #include <state_manager/state_manager_transition_fade_to_black.hpp>
@@ -15,6 +14,7 @@
 #include <tweens/tween_alpha.hpp>
 #include <tweens/tween_color.hpp>
 #include <tweens/tween_position.hpp>
+#include <algorithm>
 
 void StateMenu::onCreate()
 {
@@ -57,8 +57,9 @@ void StateMenu::createMenuText()
 
 void StateMenu::createTextExplanation()
 {
-    m_textExplanation
-        = jt::dh::createText(renderTarget(), GP::ExplanationText(), 16u, GP::PaletteFontFront());
+    m_textExplanation = jt::dh::createText(renderTarget(),
+        GP::ExplanationText() + "\nLast Score: " + std::to_string(m_score), 16u,
+        GP::PaletteFontFront());
     auto const half_width = GP::GetScreenSize().x / 2.0f;
     m_textExplanation->setPosition({ half_width, 100 });
     m_textExplanation->setShadow(GP::PaletteFontShadow(), jt::Vector2f { 2, 2 });
@@ -203,7 +204,7 @@ void StateMenu::checkForTransitionToStateGame()
 {
     auto const keysToTriggerTransition = { jt::KeyCode::Space, jt::KeyCode::Enter };
 
-    if (std::any_of(std::begin(keysToTriggerTransition),std::end(keysToTriggerTransition) ,
+    if (std::any_of(std::begin(keysToTriggerTransition), std::end(keysToTriggerTransition),
             [this](auto const k) { return getGame()->input().keyboard()->justPressed(k); })) {
         startTransitionToStateGame();
     }

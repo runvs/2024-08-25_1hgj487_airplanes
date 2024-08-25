@@ -103,7 +103,7 @@ void StateGame::endGame()
     m_running = false;
 
     auto const newState = std::make_shared<StateMenu>();
-    newState->setScore(m_age);
+    newState->setScore(getAge() * 10);
     getGame()->stateManager().switchState(newState);
 }
 
