@@ -2,6 +2,7 @@
 #define GAME_STATE_GAME_HPP
 
 #include "plane.hpp"
+#include "random/random_sample_and_hold.hpp"
 #include <box2dwrapper/box2d_world_interface.hpp>
 #include <game_state.hpp>
 #include <target.hpp>

@@ -7,12 +7,12 @@
 class Target : public jt::GameObject {
 
 public:
+    std::shared_ptr<jt::Shape> m_shape;
+
 private:
     void doCreate() override;
     void doUpdate(float const elapsed) override;
     void doDraw() const override;
-
-    std::shared_ptr<jt::Shape> m_shape;
 
     jt::Vector2f m_position;
 

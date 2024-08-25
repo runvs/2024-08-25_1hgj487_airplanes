@@ -2,6 +2,8 @@
 
 #include "math_helper.hpp"
 #include "random/random.hpp"
+#include "tweens/tween_color.hpp"
+#include "tweens/tween_scale.hpp"
 #include <box2dwrapper/box2d_world_impl.hpp>
 #include <color/color.hpp>
 #include <game_interface.hpp>
@@ -15,6 +17,7 @@ void StateGame::replaceTarget()
 {
     m_target->setPosition(jt::Random::getRandomPointIn(
         { 32, 32, GP::GetScreenSize().x - 64, GP::GetScreenSize().y - 64 }));
+    add(jt::TweenScale::create(m_target->m_shape, 0.3f, { 2.5f, 2.5f }, { 1.0f, 1.0f }));
 }
 
 void StateGame::onCreate()
@@ -36,6 +39,7 @@ void StateGame::onCreate()
 
     m_target = std::make_shared<Target>();
     add(m_target);
+
     replaceTarget();
 
     m_vignette = std::make_shared<jt::Vignette>(GP::GetScreenSize());
@@ -70,6 +74,12 @@ void StateGame::onUpdate(float const elapsed)
             m_scoreP1++;
             m_hud->getObserverScoreP1()->notify(m_scoreP1);
             replaceTarget();
+            auto col = GP::PaletteBackground();
+            col.r *= 1.5f;
+            col.g *= 1.5f;
+            col.b *= 1.5f;
+            m_background->flash(0.25f, col);
+            m_plane->m_animation->flash(0.25, jt::colors::Black);
             if (m_scoreP1 >= 15) {
                 endGame();
             }

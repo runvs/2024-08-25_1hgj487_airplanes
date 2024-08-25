@@ -12,12 +12,12 @@ public:
 
     jt::Vector2f getPosition();
 
+    std::shared_ptr<jt::Animation> m_animation;
+
 private:
     void doCreate() override;
     void doUpdate(float const elapsed) override;
     void doDraw() const override;
-
-    std::shared_ptr<jt::Animation> m_animation;
 
     std::shared_ptr<jt::Box2DObject> m_physicsObject;
 
