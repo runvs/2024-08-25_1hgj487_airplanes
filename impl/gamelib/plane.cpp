@@ -12,6 +12,7 @@ void Plane::doCreate()
     m_animation = std::make_shared<jt::Animation>();
     m_animation->loadFromAseprite("assets/plane.aseprite", textureManager());
     m_animation->play("idle");
+    m_animation->setOrigin(jt::OriginMode::CENTER);
 
     b2BodyDef bodyDef;
     bodyDef.position.x = 200;
@@ -19,14 +20,14 @@ void Plane::doCreate()
     bodyDef.type = b2BodyType::b2_dynamicBody;
     bodyDef.fixedRotation = false;
     bodyDef.angularDamping = 0.0f;
-    bodyDef.linearDamping = 8.0f;
+    bodyDef.linearDamping = 1.0f;
     m_physicsObject = std::make_shared<jt::Box2DObject>(m_world, &bodyDef);
 }
 
 void Plane::doUpdate(float const elapsed)
 {
     if (getGame()->input().keyboard()->pressed(jt::KeyCode::W)) {
-        m_physicsObject->addForceToCenter(1000 * m_direction);
+        m_physicsObject->addForceToCenter(200 * m_direction);
     }
     if (getGame()->input().keyboard()->pressed(jt::KeyCode::D)) {
         m_direction = jt::MathHelper::rotateBy(m_direction, 180 * elapsed);
@@ -35,6 +36,7 @@ void Plane::doUpdate(float const elapsed)
         m_direction = jt::MathHelper::rotateBy(m_direction, -180 * elapsed);
     }
     m_animation->setPosition(m_physicsObject->getPosition());
+    m_animation->setRotation(-jt::MathHelper::angleOf(m_direction) + 90);
     m_animation->update(elapsed);
 }
 
