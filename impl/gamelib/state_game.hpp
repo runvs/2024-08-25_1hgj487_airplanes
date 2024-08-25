@@ -4,6 +4,7 @@
 #include "plane.hpp"
 #include <box2dwrapper/box2d_world_interface.hpp>
 #include <game_state.hpp>
+#include <target.hpp>
 #include <memory>
 #include <vector>
 
@@ -27,6 +28,7 @@ private:
     std::shared_ptr<jt::Box2DWorldInterface> m_world { nullptr };
 
     std::shared_ptr<Plane> m_plane;
+    std::shared_ptr<Target> m_target;
 
     bool m_running { true };
     bool m_hasEnded { false };
@@ -34,6 +36,7 @@ private:
     int m_scoreP1 { 0 };
     int m_scoreP2 { 0 };
 
+    void replaceTarget();
     void onCreate() override;
     void onEnter() override;
     void onUpdate(float const elapsed) override;

@@ -10,6 +10,8 @@ class Plane : public jt::GameObject {
 public:
     explicit Plane(std::shared_ptr<jt::Box2DWorldInterface> world);
 
+    jt::Vector2f getPosition();
+
 private:
     void doCreate() override;
     void doUpdate(float const elapsed) override;

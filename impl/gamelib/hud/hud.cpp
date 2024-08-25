@@ -17,14 +17,14 @@ void Hud::doCreate()
     m_scoreP1Text->setIgnoreCamMovement(true);
     m_scoreP1Text->setPosition({ 10, 4 });
 
-    m_scoreP1Display = std::make_shared<ScoreDisplay>(m_scoreP1Text, "P1 Score: ");
+    m_scoreP1Display = std::make_shared<ScoreDisplay>(m_scoreP1Text, "Score: ", " / 15");
 
     m_scoreP2Text = jt::dh::createText(renderTarget(), "", 16, jt::Color { 248, 249, 254 });
     m_scoreP2Text->setTextAlign(jt::Text::TextAlign::RIGHT);
     m_scoreP2Text->setIgnoreCamMovement(true);
     m_scoreP2Text->setPosition({ GP::GetScreenSize().x - 10, 4 });
 
-    m_scoreP2Display = std::make_shared<ScoreDisplay>(m_scoreP2Text, "P2 Score: ");
+    m_scoreP2Display = std::make_shared<ScoreDisplay>(m_scoreP2Text, "Time: ");
 }
 
 void Hud::doUpdate(float const elapsed)
